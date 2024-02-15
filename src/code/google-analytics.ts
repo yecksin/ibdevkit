@@ -22,37 +22,24 @@ export const IBDGoogleAnalytics = () => ({
       console.error(error);
     }
   },
-  trackPageView(url) {
+  trackPageView(page_title) {
     if (gAiD) {
       try {
-        window['gtag']('config', gAiD, {
-          page_path: url,
+        gtag('event', 'page_view', {
+          page_title,
+          send_to: gAiD,
         });
-        console.log('works');
       } catch (error) {
         console.log(error);
       }
     } else {
       console.log("can't access google analytics id");
-      console.log(window['gtag']);
     }
   },
-  trackEvent() {
+  trackEvent(eventName, value) {
     try {
-      window['gtag']('event', 'click', {
-        event_category: 'button',
-        event_label: 'cta_button',
-        value: '1',
-      });
-      window['gtag']('event', 'example', {
-        event_category: 'button',
-        event_label: 'cta_button',
-        value: '1',
-      });
-      gtag('event', 'gtagaas', {
-        event_category: 'button',
-        event_label: 'cta_button',
-        value: '1',
+      gtag('event', eventName, {
+        value,
       });
     } catch (error) {
       console.log(error);
